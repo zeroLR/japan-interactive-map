@@ -1,0 +1,28 @@
+{
+  "name": "japan-interactive-map",
+  "version": "1.0.0",
+  "description": "Interactive Japan map with D3.js and TypeScript",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": ["d3", "typescript", "japan", "map", "interactive"],
+  "author": "joseph",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.5.4",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "d3": "^7.8.5"
+  }
+}
