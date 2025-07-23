@@ -1,0 +1,179 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tokyo",
+        "name_ja": "東京都",
+        "type": "prefecture",
+        "population": 14000000
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [139.45, 35.55], [139.95, 35.55], [139.95, 35.85], [139.45, 35.85], [139.45, 35.55]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Osaka",
+        "name_ja": "大阪府",
+        "type": "prefecture",
+        "population": 8800000
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [135.25, 34.4], [135.75, 34.4], [135.75, 34.8], [135.25, 34.8], [135.25, 34.4]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kyoto",
+        "name_ja": "京都府",
+        "type": "prefecture",
+        "population": 2600000
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [135.4, 34.8], [135.9, 34.8], [135.9, 35.3], [135.4, 35.3], [135.4, 34.8]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hokkaido",
+        "name_ja": "北海道",
+        "type": "prefecture",
+        "population": 5200000
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [139.0, 41.0], [146.0, 41.0], [146.0, 46.0], [139.0, 46.0], [139.0, 41.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kanagawa",
+        "name_ja": "神奈川県",
+        "type": "prefecture",
+        "population": 9200000
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [139.0, 35.1], [139.7, 35.1], [139.7, 35.6], [139.0, 35.6], [139.0, 35.1]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Aichi",
+        "name_ja": "愛知県",
+        "type": "prefecture",
+        "population": 7500000
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [136.5, 34.6], [137.5, 34.6], [137.5, 35.4], [136.5, 35.4], [136.5, 34.6]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sapporo",
+        "name_ja": "札幌市",
+        "type": "city",
+        "population": 1950000,
+        "prefecture": "Hokkaido"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [141.35, 43.06]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Yokohama",
+        "name_ja": "横浜市",
+        "type": "city",
+        "population": 3700000,
+        "prefecture": "Kanagawa"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.64, 35.44]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Nagoya",
+        "name_ja": "名古屋市",
+        "type": "city",
+        "population": 2300000,
+        "prefecture": "Aichi"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [136.91, 35.18]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kobe",
+        "name_ja": "神戸市",
+        "type": "city",
+        "population": 1540000,
+        "prefecture": "Hyogo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [135.18, 34.69]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fukuoka",
+        "name_ja": "福岡市",
+        "type": "city",
+        "population": 1600000,
+        "prefecture": "Fukuoka"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [130.40, 33.59]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sendai",
+        "name_ja": "仙台市",
+        "type": "city",
+        "population": 1090000,
+        "prefecture": "Miyagi"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [140.87, 38.27]
+      }
+    }
+  ]
+}
