@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
+  base: '/japan-interactive-map/',
   plugins: [
     dts({
       include: ['src/**/*'],
