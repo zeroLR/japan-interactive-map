@@ -121,7 +121,7 @@ class JapanInteractiveMap {
 
   private async loadData(): Promise<void> {
     try {
-      const response = await fetch('./data/japan.geojson');
+      const response = await fetch('./data/japan_prefectures.geojson');
       this.data = await response.json() as JapanGeoJSON;
       this.renderMap();
     } catch (error) {
@@ -153,10 +153,11 @@ class JapanInteractiveMap {
       .attr('class', 'prefecture')
       .attr('d', this.path)
       .style('fill', '#4A90E2')
-      .style('stroke', '#2C3E50')
+      .style('stroke', '#ffffff')
       .style('stroke-width', '2px')
       .style('cursor', 'pointer')
       .style('transition', 'all 0.3s ease')
+      .style('filter', 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))')
       .on('mouseenter', (event, d) => {
         this.handleMouseEnter(event, d);
       })
@@ -172,17 +173,22 @@ class JapanInteractiveMap {
   }
 
   private handleMouseEnter(event: MouseEvent, d: JapanFeature): void {
-    // Highlight the element
+    // Highlight the element with enhanced visual feedback
     d3.select(event.target as Element)
-      .style('fill', '#3498DB')
-      .style('stroke-width', '3px');
+      .style('fill', '#E74C3C')
+      .style('stroke-width', '3px')
+      .style('stroke', '#ffffff')
+      .style('filter', 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))')
+      .style('transform', 'scale(1.02)');
 
     // Show tooltip
     const tooltipData: TooltipData = {
       name: d.properties.name,
       name_ja: d.properties.name_ja,
       type: d.properties.type,
-      population: d.properties.population
+      population: d.properties.population,
+      capital: d.properties.capital,
+      image: d.properties.image
     };
 
     this.showTooltip(tooltipData);
@@ -196,10 +202,13 @@ class JapanInteractiveMap {
   }
 
   private handleMouseLeave(): void {
-    // Remove highlight
+    // Remove highlight and restore original styling
     d3.selectAll('.prefecture')
       .style('fill', '#4A90E2')
-      .style('stroke-width', '2px');
+      .style('stroke-width', '2px')
+      .style('stroke', '#ffffff')
+      .style('filter', 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))')
+      .style('transform', 'scale(1)');
 
     // Hide tooltip
     this.hideTooltip();
@@ -211,11 +220,20 @@ class JapanInteractiveMap {
   }
 
   private showTooltip(data: TooltipData): void {
+    const imageHtml = data.image 
+      ? `<div class="tooltip-image"><img src="${data.image}" alt="${data.name}" style="width: 150px; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;" /></div>`
+      : '';
+    
+    const capitalHtml = data.capital 
+      ? `<div style="color: #bbb; font-size: 12px;">Capital: ${data.capital}</div>`
+      : '';
+
     const content = `
-      <div><strong>${data.name}</strong></div>
-      <div>${data.name_ja}</div>
-      <div>Type: ${data.type}</div>
-      <div>Population: ${data.population.toLocaleString()}</div>
+      ${imageHtml}
+      <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">${data.name}</div>
+      <div style="color: #ccc; margin-bottom: 6px;">${data.name_ja}</div>
+      ${capitalHtml}
+      <div style="color: #ddd; font-size: 14px;">Population: ${data.population.toLocaleString()}</div>
     `;
 
     this.tooltip
