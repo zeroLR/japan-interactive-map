@@ -45,6 +45,45 @@
             position: relative;
         }
 
+        .zoom-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .zoom-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .zoom-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
         #map {
             width: 100%;
             height: 100%;
@@ -103,12 +142,34 @@
                 font-size: 12px;
                 padding: 8px;
             }
+
+            .zoom-controls {
+                top: 15px;
+                right: 15px;
+            }
+
+            .zoom-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
         }
 
         @media (max-width: 480px) {
             #map-container {
                 height: 60vh;
                 min-height: 350px;
+            }
+
+            .zoom-controls {
+                top: 10px;
+                right: 10px;
+            }
+
+            .zoom-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
             }
         }
     </style>
@@ -119,9 +180,13 @@
         <div id="map-container">
             <svg id="map"></svg>
             <div class="tooltip" id="tooltip"></div>
+            <div class="zoom-controls">
+                <button class="zoom-btn" id="zoom-in" title="Zoom In">+</button>
+                <button class="zoom-btn" id="zoom-out" title="Zoom Out">−</button>
+            </div>
         </div>
         <div class="info">
-            <p>Hover over city regions to see their names and codes. Use mouse wheel or touch gestures to zoom.</p>
+            <p>Hover over city regions to see their names and codes. Use mouse wheel, touch gestures, or the +/− buttons to zoom.</p>
         </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
