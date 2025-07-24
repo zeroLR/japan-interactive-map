@@ -1,0 +1,261 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tokyo",
+        "name_ja": "東京都",
+        "type": "prefecture",
+        "population": 14048000,
+        "capital": "Tokyo",
+        "image": "https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [139.691706, 35.689487],
+          [139.817413, 35.676267],
+          [139.817413, 35.729503],
+          [139.691706, 35.764705],
+          [139.648895, 35.721745],
+          [139.691706, 35.689487]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kanagawa",
+        "name_ja": "神奈川県",
+        "type": "prefecture",
+        "population": 9215000,
+        "capital": "Yokohama",
+        "image": "https://images.unsplash.com/photo-1590253230532-a67f6bc61d1e?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [139.648895, 35.721745],
+          [139.691706, 35.689487],
+          [139.691706, 35.440850],
+          [139.350891, 35.332074],
+          [139.350891, 35.456636],
+          [139.648895, 35.721745]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Osaka",
+        "name_ja": "大阪府",
+        "type": "prefecture",
+        "population": 8837000,
+        "capital": "Osaka",
+        "image": "https://images.unsplash.com/photo-1590253229439-11386d19e28a?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [135.502165, 34.693738],
+          [135.605164, 34.693738],
+          [135.605164, 34.620930],
+          [135.395477, 34.620930],
+          [135.395477, 34.693738],
+          [135.502165, 34.693738]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Aichi",
+        "name_ja": "愛知県",
+        "type": "prefecture",
+        "population": 7552000,
+        "capital": "Nagoya",
+        "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [136.906365, 35.184387],
+          [137.274780, 35.184387],
+          [137.274780, 34.879618],
+          [136.906365, 34.879618],
+          [136.906365, 35.184387]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Saitama",
+        "name_ja": "埼玉県",
+        "type": "prefecture",
+        "population": 7350000,
+        "capital": "Saitama",
+        "image": "https://images.unsplash.com/photo-1590253229754-afce4ab0c1b0?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [139.691706, 35.689487],
+          [139.817413, 35.676267],
+          [139.817413, 36.105170],
+          [139.350891, 36.105170],
+          [139.350891, 35.764705],
+          [139.691706, 35.689487]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Chiba",
+        "name_ja": "千葉県",
+        "type": "prefecture",
+        "population": 6287000,
+        "capital": "Chiba",
+        "image": "https://images.unsplash.com/photo-1591795673662-95de8f71ca58?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [139.817413, 35.676267],
+          [140.386963, 35.676267],
+          [140.386963, 35.332074],
+          [139.817413, 35.332074],
+          [139.817413, 35.676267]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hyogo",
+        "name_ja": "兵庫県",
+        "type": "prefecture",
+        "population": 5465000,
+        "capital": "Kobe",
+        "image": "https://images.unsplash.com/photo-1590253230046-a4fc9c1a7b6a?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [134.690857, 35.690777],
+          [135.502165, 35.690777],
+          [135.502165, 34.620930],
+          [134.690857, 34.620930],
+          [134.690857, 35.690777]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hokkaido",
+        "name_ja": "北海道",
+        "type": "prefecture",
+        "population": 5250000,
+        "capital": "Sapporo",
+        "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [139.691706, 42.944785],
+          [145.688324, 42.944785],
+          [145.688324, 45.557296],
+          [139.691706, 45.557296],
+          [139.691706, 42.944785]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Fukuoka",
+        "name_ja": "福岡県",
+        "type": "prefecture",
+        "population": 5136000,
+        "capital": "Fukuoka",
+        "image": "https://images.unsplash.com/photo-1590253229439-11386d19e28a?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [130.249023, 33.606557],
+          [131.044922, 33.606557],
+          [131.044922, 33.137551],
+          [130.249023, 33.137551],
+          [130.249023, 33.606557]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Shizuoka",
+        "name_ja": "静岡県",
+        "type": "prefecture",
+        "population": 3644000,
+        "capital": "Shizuoka",
+        "image": "https://images.unsplash.com/photo-1590253230532-a67f6bc61d1e?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [137.274780, 35.184387],
+          [139.350891, 35.184387],
+          [139.350891, 34.879618],
+          [137.274780, 34.879618],
+          [137.274780, 35.184387]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Hiroshima",
+        "name_ja": "広島県",
+        "type": "prefecture",
+        "population": 2804000,
+        "capital": "Hiroshima",
+        "image": "https://images.unsplash.com/photo-1590253230046-a4fc9c1a7b6a?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [132.459717, 34.693738],
+          [133.351440, 34.693738],
+          [133.351440, 34.124205],
+          [132.459717, 34.124205],
+          [132.459717, 34.693738]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Kyoto",
+        "name_ja": "京都府",
+        "type": "prefecture",
+        "population": 2583000,
+        "capital": "Kyoto",
+        "image": "https://images.unsplash.com/photo-1590253229439-11386d19e28a?w=150&h=100&fit=crop"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [135.502165, 35.690777],
+          [136.252136, 35.690777],
+          [136.252136, 34.879618],
+          [135.502165, 34.879618],
+          [135.502165, 35.690777]
+        ]]
+      }
+    }
+  ]
+}

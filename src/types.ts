@@ -3,6 +3,8 @@ export interface JapanFeatureProperties {
   name_ja: string;
   type: string;
   population: number;
+  capital?: string;
+  image?: string;
 }
 
 export interface JapanFeature extends GeoJSON.Feature {
@@ -19,4 +21,6 @@ export interface TooltipData {
   name_ja: string;
   type: string;
   population: number;
+  capital?: string;
+  image?: string;
 }
