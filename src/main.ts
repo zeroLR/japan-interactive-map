@@ -40,12 +40,8 @@ class JapanInteractiveMap {
   }
 
   private setupProjection(): void {
-    // Use Mercator projection centered on Japan
-    this.projection = d3.geoMercator()
-      .center([138, 36]) // Center of Japan approximately
-      .scale(1200)
-      .translate([this.width / 2, this.height / 2]);
-
+    // Use Mercator projection that will be fitted to the data
+    this.projection = d3.geoMercator();
     this.path = d3.geoPath().projection(this.projection);
   }
 
@@ -54,7 +50,7 @@ class JapanInteractiveMap {
       .scaleExtent([0.5, 8])
       .on('zoom', (event) => {
         const { transform } = event;
-        this.svg.selectAll('path, circle')
+        this.svg.selectAll('path')
           .attr('transform', transform);
       });
 
@@ -82,9 +78,6 @@ class JapanInteractiveMap {
         .attr('height', this.height)
         .attr('viewBox', `0 0 ${this.width} ${this.height}`);
 
-      this.projection
-        .translate([this.width / 2, this.height / 2]);
-
       // Redraw if data is loaded
       if (this.data) {
         this.renderMap();
@@ -94,7 +87,7 @@ class JapanInteractiveMap {
 
   private async loadData(): Promise<void> {
     try {
-      const response = await fetch('./data/japan.geojson');
+      const response = await fetch('./data/japan_one_twenty_map.geojson');
       this.data = await response.json() as JapanGeoJSON;
       this.renderMap();
     } catch (error) {
@@ -108,58 +101,22 @@ class JapanInteractiveMap {
     // Clear existing elements
     this.svg.selectAll('*').remove();
 
+    // Fit the projection to the data
+    this.projection.fitSize([this.width, this.height], this.data);
+
     // Create main group for zoom transform
     const mapGroup = this.svg.append('g');
 
-    // Render prefectures
-    const prefectures = this.data.features.filter(d => d.properties.type === 'prefecture');
-    
-    mapGroup.selectAll('.prefecture')
-      .data(prefectures)
+    // Render all city regions (all features are now cities)
+    mapGroup.selectAll('.city-region')
+      .data(this.data.features)
       .enter()
       .append('path')
-      .attr('class', 'prefecture')
+      .attr('class', 'city-region')
       .attr('d', this.path)
       .style('fill', '#e6f3ff')
       .style('stroke', '#2980b9')
       .style('stroke-width', '1px')
-      .style('cursor', 'pointer')
-      .on('mouseenter', (event, d) => {
-        this.handleMouseEnter(event, d);
-      })
-      .on('mousemove', (event) => {
-        this.handleMouseMove(event);
-      })
-      .on('mouseleave', () => {
-        this.handleMouseLeave();
-      })
-      .on('click', (event, d) => {
-        this.handleClick(event, d);
-      });
-
-    // Render cities
-    const cities = this.data.features.filter(d => d.properties.type === 'city');
-    
-    mapGroup.selectAll('.city')
-      .data(cities)
-      .enter()
-      .append('circle')
-      .attr('class', 'city')
-      .attr('cx', d => {
-        const coords = d.geometry as GeoJSON.Point;
-        const projected = this.projection(coords.coordinates as [number, number]);
-        return projected ? projected[0] : 0;
-      })
-      .attr('cy', d => {
-        const coords = d.geometry as GeoJSON.Point;
-        const projected = this.projection(coords.coordinates as [number, number]);
-        return projected ? projected[1] : 0;
-      })
-      .attr('r', d => Math.sqrt(d.properties.population / 100000) + 3)
-      .style('fill', '#e74c3c')
-      .style('stroke', '#c0392b')
-      .style('stroke-width', '1px')
-      .style('opacity', 0.8)
       .style('cursor', 'pointer')
       .on('mouseenter', (event, d) => {
         this.handleMouseEnter(event, d);
@@ -183,11 +140,8 @@ class JapanInteractiveMap {
 
     // Show tooltip
     const tooltipData: TooltipData = {
-      name: d.properties.name,
-      name_ja: d.properties.name_ja,
-      type: d.properties.type,
-      population: d.properties.population,
-      prefecture: d.properties.prefecture
+      name: d.properties.names_1_20,
+      code: d.properties.code_1_20
     };
 
     this.showTooltip(tooltipData);
@@ -202,10 +156,8 @@ class JapanInteractiveMap {
 
   private handleMouseLeave(): void {
     // Remove highlight
-    d3.selectAll('.prefecture, .city')
-      .style('opacity', function() { 
-        return d3.select(this).classed('city') ? 0.8 : 1;
-      })
+    d3.selectAll('.city-region')
+      .style('opacity', 1)
       .style('filter', 'none');
 
     // Hide tooltip
@@ -213,17 +165,15 @@ class JapanInteractiveMap {
   }
 
   private handleClick(_event: MouseEvent, d: JapanFeature): void {
-    console.log('Clicked on:', d.properties.name);
+    console.log('Clicked on:', d.properties.names_1_20, 'Code:', d.properties.code_1_20);
     // Could implement additional click functionality here
   }
 
   private showTooltip(data: TooltipData): void {
     const content = `
       <div><strong>${data.name}</strong></div>
-      <div>${data.name_ja}</div>
-      <div>${data.type === 'city' ? 'City' : 'Prefecture'}</div>
-      <div>Population: ${data.population.toLocaleString()}</div>
-      ${data.prefecture ? `<div>Prefecture: ${data.prefecture}</div>` : ''}
+      <div>Code: ${data.code}</div>
+      <div>City Region</div>
     `;
 
     this.tooltip

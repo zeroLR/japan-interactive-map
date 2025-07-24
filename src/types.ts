@@ -1,14 +1,12 @@
 export interface JapanFeatureProperties {
-  name: string;
-  name_ja: string;
-  type: 'prefecture' | 'city';
-  population: number;
-  prefecture?: string; // For cities, which prefecture they belong to
+  names_1_20: string;
+  code_1_20: number;
 }
 
 export interface JapanFeature extends GeoJSON.Feature {
   properties: JapanFeatureProperties;
-  geometry: GeoJSON.Polygon | GeoJSON.Point;
+  geometry: GeoJSON.Polygon;
+  id: number;
 }
 
 export interface JapanGeoJSON extends GeoJSON.FeatureCollection {
@@ -17,8 +15,5 @@ export interface JapanGeoJSON extends GeoJSON.FeatureCollection {
 
 export interface TooltipData {
   name: string;
-  name_ja: string;
-  type: string;
-  population: number;
-  prefecture?: string;
+  code: number;
 }
