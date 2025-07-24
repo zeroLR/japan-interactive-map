@@ -87,12 +87,8 @@ class JapanInteractiveMap {
 
   private async loadData(): Promise<void> {
     try {
-      console.log('Loading GeoJSON data...');
       const response = await fetch('./data/japan_one_twenty_map.geojson');
-      console.log('Response status:', response.status);
       this.data = await response.json() as JapanGeoJSON;
-      console.log('Data loaded:', this.data);
-      console.log('Number of features:', this.data?.features?.length);
       this.renderMap();
     } catch (error) {
       console.error('Error loading Japan GeoJSON data:', error);
@@ -100,25 +96,35 @@ class JapanInteractiveMap {
   }
 
   private renderMap(): void {
-    if (!this.data) {
-      console.log('No data available for rendering');
-      return;
-    }
-
-    console.log('Rendering map with data:', this.data.features.length, 'features');
+    if (!this.data) return;
 
     // Clear existing elements
     this.svg.selectAll('*').remove();
 
-    // Fit the projection to the data
-    this.projection.fitSize([this.width, this.height], this.data);
-    console.log('Projection fitted to size:', this.width, 'x', this.height);
+    // Use fitExtent to better control the positioning and use full width
+    this.projection.fitExtent([[0, 0], [this.width, this.height]], this.data);
+    
+    // Get the projection's scale after fitting
+    let scale = this.projection.scale();
+
+    // Manually increase the scale to make the map larger and better use available space
+    // Japan's natural aspect ratio doesn't fill the wide container, so we scale it up
+    const scaleFactor = 3.5; // Balanced scaling for good visibility without too much overflow
+    scale *= scaleFactor;
+    
+    // Center the map in the available space
+    const centerX = this.width / 2;
+    const centerY = this.height / 2;
+    
+    this.projection
+      .scale(scale)
+      .translate([centerX, centerY]);
 
     // Create main group for zoom transform
     const mapGroup = this.svg.append('g');
 
     // Render all city regions (all features are now cities)
-    const paths = mapGroup.selectAll('.city-region')
+    mapGroup.selectAll('.city-region')
       .data(this.data.features)
       .enter()
       .append('path')
@@ -140,15 +146,6 @@ class JapanInteractiveMap {
       .on('click', (event, d) => {
         this.handleClick(event, d);
       });
-
-    console.log('Created', paths.size(), 'path elements');
-    
-    // Log first few path data for debugging
-    paths.each((d, i) => {
-      if (i < 3) {
-        console.log(`Path ${i}:`, d.properties.names_1_20, 'path data:', this.path(d));
-      }
-    });
   }
 
   private handleMouseEnter(event: MouseEvent, d: JapanFeature): void {
