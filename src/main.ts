@@ -101,24 +101,12 @@ class JapanInteractiveMap {
     // Clear existing elements
     this.svg.selectAll('*').remove();
 
-    // Use fitExtent to better control the positioning and use full width
-    this.projection.fitExtent([[0, 0], [this.width, this.height]], this.data);
-    
-    // Get the projection's scale after fitting
-    let scale = this.projection.scale();
-
-    // Manually increase the scale to make the map larger and better use available space
-    // Japan's natural aspect ratio doesn't fill the wide container, so we scale it up
-    const scaleFactor = 3.5; // Balanced scaling for good visibility without too much overflow
-    scale *= scaleFactor;
-    
-    // Center the map in the available space
-    const centerX = this.width / 2;
-    const centerY = this.height / 2;
-    
-    this.projection
-      .scale(scale)
-      .translate([centerX, centerY]);
+    // Use fitExtent with minimal padding to maximize map size
+    const padding = 40; // Small padding to ensure map doesn't touch edges
+    this.projection.fitExtent(
+      [[padding, padding], [this.width - padding, this.height - padding]], 
+      this.data
+    );
 
     // Create main group for zoom transform
     const mapGroup = this.svg.append('g');
