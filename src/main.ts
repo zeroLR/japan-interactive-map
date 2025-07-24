@@ -173,10 +173,13 @@ class JapanInteractiveMap {
   }
 
   private handleMouseEnter(event: MouseEvent, d: JapanFeature): void {
-    // Highlight the element
+    // Highlight the element with enhanced visual feedback
     d3.select(event.target as Element)
-      .style('fill', '#2980B9')
-      .style('stroke-width', '3px');
+      .style('fill', '#E74C3C')
+      .style('stroke-width', '3px')
+      .style('stroke', '#ffffff')
+      .style('filter', 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))')
+      .style('transform', 'scale(1.02)');
 
     // Show tooltip
     const tooltipData: TooltipData = {
@@ -199,10 +202,13 @@ class JapanInteractiveMap {
   }
 
   private handleMouseLeave(): void {
-    // Remove highlight
+    // Remove highlight and restore original styling
     d3.selectAll('.prefecture')
       .style('fill', '#4A90E2')
-      .style('stroke-width', '2px');
+      .style('stroke-width', '2px')
+      .style('stroke', '#ffffff')
+      .style('filter', 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))')
+      .style('transform', 'scale(1)');
 
     // Hide tooltip
     this.hideTooltip();
