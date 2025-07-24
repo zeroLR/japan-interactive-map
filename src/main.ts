@@ -212,7 +212,7 @@ class JapanInteractiveMap {
     this.hideTooltip();
   }
 
-  private handleClick(event: MouseEvent, d: JapanFeature): void {
+  private handleClick(_event: MouseEvent, d: JapanFeature): void {
     console.log('Clicked on:', d.properties.name);
     // Could implement additional click functionality here
   }
