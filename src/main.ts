@@ -16,6 +16,7 @@ class JapanInteractiveMap {
     this.initializeElements();
     this.setupProjection();
     this.setupZoom();
+    this.setupZoomControls();
     this.setupResponsive();
     this.loadData();
   }
@@ -55,6 +56,39 @@ class JapanInteractiveMap {
       });
 
     this.svg.call(this.zoom);
+  }
+
+  private setupZoomControls(): void {
+    const zoomInBtn = document.getElementById('zoom-in') as HTMLButtonElement;
+    const zoomOutBtn = document.getElementById('zoom-out') as HTMLButtonElement;
+
+    if (zoomInBtn && zoomOutBtn) {
+      zoomInBtn.addEventListener('click', () => {
+        this.zoomIn();
+      });
+
+      zoomOutBtn.addEventListener('click', () => {
+        this.zoomOut();
+      });
+    }
+  }
+
+  private zoomIn(): void {
+    this.svg.transition()
+      .duration(300)
+      .call(
+        this.zoom.scaleBy as any,
+        1.5
+      );
+  }
+
+  private zoomOut(): void {
+    this.svg.transition()
+      .duration(300)
+      .call(
+        this.zoom.scaleBy as any,
+        1 / 1.5
+      );
   }
 
   private setupResponsive(): void {
