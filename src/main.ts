@@ -131,7 +131,7 @@ class JapanInteractiveMap {
       .attr('class', 'city-region')
       .attr('d', this.path)
       .style('fill', '#e6f3ff')
-      .style('stroke', '#2980b9')
+      .style('stroke', 'black')
       .style('stroke-width', '1px')
       .style('cursor', 'pointer')
       .on('mouseenter', (event, d) => {
