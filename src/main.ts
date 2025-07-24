@@ -121,7 +121,7 @@ class JapanInteractiveMap {
 
   private async loadData(): Promise<void> {
     try {
-      const response = await fetch('./data/japan_one_twenty_map.geojson');
+      const response = await fetch('./data/japan.geojson');
       this.data = await response.json() as JapanGeoJSON;
       this.renderMap();
     } catch (error) {
@@ -145,17 +145,18 @@ class JapanInteractiveMap {
     // Create main group for zoom transform
     const mapGroup = this.svg.append('g');
 
-    // Render all city regions (all features are now cities)
-    mapGroup.selectAll('.city-region')
+    // Render all prefectures
+    mapGroup.selectAll('.prefecture')
       .data(this.data.features)
       .enter()
       .append('path')
-      .attr('class', 'city-region')
+      .attr('class', 'prefecture')
       .attr('d', this.path)
-      .style('fill', '#e6f3ff')
-      .style('stroke', 'black')
-      .style('stroke-width', '1px')
+      .style('fill', '#4A90E2')
+      .style('stroke', '#2C3E50')
+      .style('stroke-width', '2px')
       .style('cursor', 'pointer')
+      .style('transition', 'all 0.3s ease')
       .on('mouseenter', (event, d) => {
         this.handleMouseEnter(event, d);
       })
@@ -173,13 +174,15 @@ class JapanInteractiveMap {
   private handleMouseEnter(event: MouseEvent, d: JapanFeature): void {
     // Highlight the element
     d3.select(event.target as Element)
-      .style('opacity', 1)
-      .style('filter', 'brightness(1.2)');
+      .style('fill', '#3498DB')
+      .style('stroke-width', '3px');
 
     // Show tooltip
     const tooltipData: TooltipData = {
-      name: d.properties.names_1_20,
-      code: d.properties.code_1_20
+      name: d.properties.name,
+      name_ja: d.properties.name_ja,
+      type: d.properties.type,
+      population: d.properties.population
     };
 
     this.showTooltip(tooltipData);
@@ -194,24 +197,25 @@ class JapanInteractiveMap {
 
   private handleMouseLeave(): void {
     // Remove highlight
-    d3.selectAll('.city-region')
-      .style('opacity', 1)
-      .style('filter', 'none');
+    d3.selectAll('.prefecture')
+      .style('fill', '#4A90E2')
+      .style('stroke-width', '2px');
 
     // Hide tooltip
     this.hideTooltip();
   }
 
   private handleClick(_event: MouseEvent, d: JapanFeature): void {
-    console.log('Clicked on:', d.properties.names_1_20, 'Code:', d.properties.code_1_20);
+    console.log('Clicked on:', d.properties.name, 'Population:', d.properties.population);
     // Could implement additional click functionality here
   }
 
   private showTooltip(data: TooltipData): void {
     const content = `
       <div><strong>${data.name}</strong></div>
-      <div>Code: ${data.code}</div>
-      <div>City Region</div>
+      <div>${data.name_ja}</div>
+      <div>Type: ${data.type}</div>
+      <div>Population: ${data.population.toLocaleString()}</div>
     `;
 
     this.tooltip
