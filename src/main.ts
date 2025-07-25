@@ -183,11 +183,11 @@ class JapanInteractiveMap {
       .style('filter', 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))')
       .style('transform', 'scale(1.02)');
 
-    // Show tooltip
+    // Show tooltip - map new GeoJSON properties to expected format
     const tooltipData: TooltipData = {
-      name: d.properties.name,
-      name_ja: d.properties.name_ja,
-      type: d.properties.type,
+      name: d.properties.NAME_1 || d.properties.name || 'Unknown',
+      name_ja: d.properties.NL_NAME_1 || d.properties.name_ja || 'Unknown',
+      type: d.properties.ENGTYPE_1 || d.properties.type || 'Prefecture',
       population: d.properties.population,
       capital: d.properties.capital,
       image: d.properties.image,
@@ -218,11 +218,13 @@ class JapanInteractiveMap {
   }
 
   private handleClick(_event: MouseEvent, d: JapanFeature): void {
+    const name = d.properties.NAME_1 || d.properties.name || 'Unknown';
+    const population = d.properties.population || 'Unknown';
     console.log(
       'Clicked on:',
-      d.properties.name,
+      name,
       'Population:',
-      d.properties.population,
+      population,
     );
     // Could implement additional click functionality here
   }
@@ -236,7 +238,9 @@ class JapanInteractiveMap {
       ? `<div style="color: #bbb; font-size: 12px;">Capital: ${data.capital}</div>`
       : '';
 
-    const population = data.population || 0;
+    const populationHtml = data.population
+      ? `<div style="color: #ddd; font-size: 14px;">Population: ${data.population.toLocaleString()}</div>`
+      : '';
 
     const content = `
       ${imageHtml}
@@ -245,7 +249,7 @@ class JapanInteractiveMap {
       }</div>
       <div style="color: #ccc; margin-bottom: 6px;">${data.name_ja || 'Unknown'}</div>
       ${capitalHtml}
-      <div style="color: #ddd; font-size: 14px;">Population: ${population.toLocaleString()}</div>
+      ${populationHtml}
     `;
 
     this.tooltip.html(content).classed('show', true);
