@@ -47,12 +47,12 @@ class JapanInteractiveMap {
   }
 
   private setupZoom(): void {
-    this.zoom = d3.zoom<SVGSVGElement, unknown>()
+    this.zoom = d3
+      .zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.5, 8])
       .on('zoom', (event) => {
         const { transform } = event;
-        this.svg.selectAll('path')
-          .attr('transform', transform);
+        this.svg.selectAll('path').attr('transform', transform);
       });
 
     this.svg.call(this.zoom);
@@ -74,21 +74,17 @@ class JapanInteractiveMap {
   }
 
   private zoomIn(): void {
-    this.svg.transition()
+    this.svg
+      .transition()
       .duration(300)
-      .call(
-        this.zoom.scaleBy as any,
-        1.5
-      );
+      .call(this.zoom.scaleBy as any, 1.5);
   }
 
   private zoomOut(): void {
-    this.svg.transition()
+    this.svg
+      .transition()
       .duration(300)
-      .call(
-        this.zoom.scaleBy as any,
-        1 / 1.5
-      );
+      .call(this.zoom.scaleBy as any, 1 / 1.5);
   }
 
   private setupResponsive(): void {
@@ -121,8 +117,8 @@ class JapanInteractiveMap {
 
   private async loadData(): Promise<void> {
     try {
-      const response = await fetch('./data/japan_prefectures.geojson');
-      this.data = await response.json() as JapanGeoJSON;
+      const response = await fetch('./data/gadm41_JPN_1.geojson');
+      this.data = (await response.json()) as JapanGeoJSON;
       this.renderMap();
     } catch (error) {
       console.error('Error loading Japan GeoJSON data:', error);
@@ -138,15 +134,19 @@ class JapanInteractiveMap {
     // Use fitExtent with minimal padding to maximize map size
     const padding = 40; // Small padding to ensure map doesn't touch edges
     this.projection.fitExtent(
-      [[padding, padding], [this.width - padding, this.height - padding]], 
-      this.data
+      [
+        [padding, padding],
+        [this.width - padding, this.height - padding],
+      ],
+      this.data,
     );
 
     // Create main group for zoom transform
     const mapGroup = this.svg.append('g');
 
     // Render all prefectures
-    mapGroup.selectAll('.prefecture')
+    mapGroup
+      .selectAll('.prefecture')
       .data(this.data.features)
       .enter()
       .append('path')
@@ -188,7 +188,7 @@ class JapanInteractiveMap {
       type: d.properties.type,
       population: d.properties.population,
       capital: d.properties.capital,
-      image: d.properties.image
+      image: d.properties.image,
     };
 
     this.showTooltip(tooltipData);
@@ -215,30 +215,35 @@ class JapanInteractiveMap {
   }
 
   private handleClick(_event: MouseEvent, d: JapanFeature): void {
-    console.log('Clicked on:', d.properties.name, 'Population:', d.properties.population);
+    console.log(
+      'Clicked on:',
+      d.properties.name,
+      'Population:',
+      d.properties.population,
+    );
     // Could implement additional click functionality here
   }
 
   private showTooltip(data: TooltipData): void {
-    const imageHtml = data.image 
+    const imageHtml = data.image
       ? `<div class="tooltip-image"><img src="${data.image}" alt="${data.name}" style="width: 150px; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;" /></div>`
       : '';
-    
-    const capitalHtml = data.capital 
+
+    const capitalHtml = data.capital
       ? `<div style="color: #bbb; font-size: 12px;">Capital: ${data.capital}</div>`
       : '';
 
     const content = `
       ${imageHtml}
-      <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">${data.name}</div>
+      <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">${
+        data.name
+      }</div>
       <div style="color: #ccc; margin-bottom: 6px;">${data.name_ja}</div>
       ${capitalHtml}
       <div style="color: #ddd; font-size: 14px;">Population: ${data.population.toLocaleString()}</div>
     `;
 
-    this.tooltip
-      .html(content)
-      .classed('show', true);
+    this.tooltip.html(content).classed('show', true);
   }
 
   private hideTooltip(): void {
