@@ -236,14 +236,16 @@ class JapanInteractiveMap {
       ? `<div style="color: #bbb; font-size: 12px;">Capital: ${data.capital}</div>`
       : '';
 
+    const population = data.population || 0;
+
     const content = `
       ${imageHtml}
       <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">${
-        data.name
+        data.name || 'Unknown'
       }</div>
-      <div style="color: #ccc; margin-bottom: 6px;">${data.name_ja}</div>
+      <div style="color: #ccc; margin-bottom: 6px;">${data.name_ja || 'Unknown'}</div>
       ${capitalHtml}
-      <div style="color: #ddd; font-size: 14px;">Population: ${data.population.toLocaleString()}</div>
+      <div style="color: #ddd; font-size: 14px;">Population: ${population.toLocaleString()}</div>
     `;
 
     this.tooltip.html(content).classed('show', true);
