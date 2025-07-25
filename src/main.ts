@@ -52,7 +52,7 @@ class JapanInteractiveMap {
       .scaleExtent([0.5, 8])
       .on('zoom', (event) => {
         const { transform } = event;
-        this.svg.selectAll('path').attr('transform', transform);
+        this.svg.select('.map-group').attr('transform', transform);
       });
 
     this.svg.call(this.zoom);
@@ -128,8 +128,8 @@ class JapanInteractiveMap {
   private renderMap(): void {
     if (!this.data) return;
 
-    // Clear existing elements
-    this.svg.selectAll('*').remove();
+    // Clear existing map elements but preserve zoom state
+    this.svg.selectAll('.map-group').remove();
 
     // Use fitExtent with minimal padding to maximize map size
     const padding = 40; // Small padding to ensure map doesn't touch edges
@@ -141,8 +141,8 @@ class JapanInteractiveMap {
       this.data,
     );
 
-    // Create main group for zoom transform
-    const mapGroup = this.svg.append('g');
+    // Create main group for zoom transform with consistent class name
+    const mapGroup = this.svg.append('g').attr('class', 'map-group');
 
     // Render all prefectures
     mapGroup
@@ -154,7 +154,8 @@ class JapanInteractiveMap {
       .attr('d', this.path)
       .style('fill', '#4A90E2')
       .style('stroke', '#ffffff')
-      .style('stroke-width', '2px')
+      .style('stroke-width', '1px')
+      .style('stroke-dasharray', '3,3')
       .style('cursor', 'pointer')
       .style('transition', 'all 0.3s ease')
       .style('filter', 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))')
@@ -176,8 +177,9 @@ class JapanInteractiveMap {
     // Highlight the element with enhanced visual feedback
     d3.select(event.target as Element)
       .style('fill', '#E74C3C')
-      .style('stroke-width', '3px')
+      .style('stroke-width', '2px')
       .style('stroke', '#ffffff')
+      .style('stroke-dasharray', 'none')
       .style('filter', 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))')
       .style('transform', 'scale(1.02)');
 
@@ -205,8 +207,9 @@ class JapanInteractiveMap {
     // Remove highlight and restore original styling
     d3.selectAll('.prefecture')
       .style('fill', '#4A90E2')
-      .style('stroke-width', '2px')
+      .style('stroke-width', '1px')
       .style('stroke', '#ffffff')
+      .style('stroke-dasharray', '3,3')
       .style('filter', 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))')
       .style('transform', 'scale(1)');
 
@@ -233,14 +236,16 @@ class JapanInteractiveMap {
       ? `<div style="color: #bbb; font-size: 12px;">Capital: ${data.capital}</div>`
       : '';
 
+    const population = data.population || 0;
+
     const content = `
       ${imageHtml}
       <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">${
-        data.name
+        data.name || 'Unknown'
       }</div>
-      <div style="color: #ccc; margin-bottom: 6px;">${data.name_ja}</div>
+      <div style="color: #ccc; margin-bottom: 6px;">${data.name_ja || 'Unknown'}</div>
       ${capitalHtml}
-      <div style="color: #ddd; font-size: 14px;">Population: ${data.population.toLocaleString()}</div>
+      <div style="color: #ddd; font-size: 14px;">Population: ${population.toLocaleString()}</div>
     `;
 
     this.tooltip.html(content).classed('show', true);
