@@ -177,11 +177,11 @@ class JapanInteractiveMap {
     // Highlight the element with enhanced visual feedback
     d3.select(event.target as Element)
       .style('fill', '#E74C3C')
-      .style('stroke-width', '2px')
+      .style('stroke-width', '0.5px')
       .style('stroke', '#ffffff')
       .style('stroke-dasharray', 'none')
       .style('filter', 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))')
-      .style('transform', 'scale(1.02)');
+      .style('transform', 'scale(1.01)');
 
     // Show tooltip - map new GeoJSON properties to expected format
     const tooltipData: TooltipData = {
