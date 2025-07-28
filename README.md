@@ -2,7 +2,7 @@
 
 An interactive map of Japan built with D3.js and TypeScript, featuring prefecture and city data with hover tooltips and responsive design.
 
-![Japan Interactive Map](https://github.com/user-attachments/assets/b9d7bf97-574a-4d0d-8a73-568965e2b4e6)
+![Japan Interactive Map](https://github.com/user-attachments/assets/019e6d51-751b-4699-88bf-3b3b440b3688)
 
 ## Features
 
@@ -17,13 +17,13 @@ An interactive map of Japan built with D3.js and TypeScript, featuring prefectur
 ## Screenshots
 
 ### Desktop View
-![Desktop View](https://github.com/user-attachments/assets/b9d7bf97-574a-4d0d-8a73-568965e2b4e6)
+![Desktop View](https://github.com/user-attachments/assets/019e6d51-751b-4699-88bf-3b3b440b3688)
 
-### City Tooltip
-![City Tooltip](https://github.com/user-attachments/assets/5863b27c-4a53-4994-82fd-805a1f7e968c)
+### Prefecture Tooltip
+![Prefecture Tooltip](https://github.com/user-attachments/assets/c850cb6d-9760-47d2-804c-a3ac4e9d0e99)
 
 ### Mobile View
-![Mobile View](https://github.com/user-attachments/assets/026f17e7-fc4b-4cd6-bbc4-b108b6ccfa05)
+![Mobile View](https://github.com/user-attachments/assets/97b11dee-590d-4b05-8031-d22ec248094f)
 
 ## Technology Stack
 
